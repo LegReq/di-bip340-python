@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+src/di_schnorr_secp256k1.egg-info/PKG-INFO
+src/di_schnorr_secp256k1.egg-info/SOURCES.txt
+src/di_schnorr_secp256k1.egg-info/dependency_links.txt
+src/di_schnorr_secp256k1.egg-info/requires.txt
+src/di_schnorr_secp256k1.egg-info/top_level.txt

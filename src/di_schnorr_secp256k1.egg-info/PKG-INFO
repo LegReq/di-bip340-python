@@ -1,0 +1,10 @@
+Metadata-Version: 2.2
+Name: di-schnorr-secp256k1
+Version: 0.0.1
+Summary: A Data Integrity CryptoSuite using BIP340 Schnorr Signatures
+Author: Will Abramson
+Requires-Python: >=3.8
+Requires-Dist: jcs
+Requires-Dist: multiformats
+Requires-Dist: buidl
+Requires-Dist: secp256k1
