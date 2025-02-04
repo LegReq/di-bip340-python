@@ -14,6 +14,6 @@ authors = [
 dependencies = [
     "jcs",
     "multiformats",
-    "buidl",
+    "buidl @ git+https://github.com/buidl-bitcoin/buidl-python",
     "secp256k1"
 ]
