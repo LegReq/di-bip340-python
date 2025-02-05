@@ -24,7 +24,7 @@ class SchnorrSecp256k1JcsCryptoSuite:
         proof_config = self.proof_configuration(proof)
         transformed_data = self.transform_document(unsecured_document,
                                                    proof_options)
-        hash_data = self.generate_hash(transformed_data, proof_config)
+        hash_data = self.generate_hash(proof_config, transformed_data)
 
         proof_bytes = self.proof_serialization(hash_data, proof_options)
 

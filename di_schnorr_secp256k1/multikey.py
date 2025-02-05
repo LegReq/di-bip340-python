@@ -35,7 +35,10 @@ class SchnorrSecp256k1Multikey:
 
     def verify(self, hash_data, sig_bytes):
         sig = SchnorrSignature.parse(sig_bytes)
-        return self.public_key.verify_schnorr(hash_data, sig)
+        print(sig)
+        verified = self.public_key.verify_schnorr(hash_data, sig)
+        print(verified)
+        return verified
         
 
     def to_verification_method(self):
