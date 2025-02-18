@@ -15,5 +15,4 @@ dependencies = [
     "jcs",
     "multiformats",
     "buidl @ git+https://github.com/buidl-bitcoin/buidl-python@c0b7d57",
-    "secp256k1"
 ]
