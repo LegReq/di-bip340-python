@@ -2,7 +2,7 @@ from buidl.ecc import PrivateKey, SchnorrSignature, S256Point
 import os
 from multiformats import varint, multibase
 
-SECP256K1_PUBLIC_KEY_PREFIX = varint.encode(0x2e7)
+SECP256K1_PUBLIC_KEY_PREFIX = varint.encode(0xe7)
 
 
 class SchnorrSecp256k1Multikey:
