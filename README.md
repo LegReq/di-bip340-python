@@ -1,4 +1,4 @@
-# Data Integrity using the [Schnorr Secp256k1 CryptoSuite](https://dcdpr.github.io/data-integrity-schnorr-secp256k1/)
+# Data Integrity using the [BIP340 CryptoSuite](https://dcdpr.github.io/data-integrity-schnorr-secp256k1/)
 ## Experimental Python Implementation
 
 > Warning: This code is for experimental purposes only and should NOT be used in production.
@@ -25,11 +25,11 @@
 
 `pip install -e .`
 
-4. Run the main (See `di_schnorr_secp256k1/__main__.py`)
+4. Run the main (See `di_bip340/__main__.py`)
 
-`python di_schnorr_secp256k1`
+`python di_bip340`
 
-The code in `__main__.py`, creates and verifies a DateIntegrityProof on a Verifiable Credential using the `schnorr-secp256k1-jcs-2025` CryptoSuite.
+The code in `__main__.py`, creates and verifies a DateIntegrityProof on a Verifiable Credential using the `bip340-jcs-2025` CryptoSuite.
 
 ## Relevant Specifications
 

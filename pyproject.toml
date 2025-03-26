@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 requires-python = ">= 3.8"
-name = "di-schnorr-secp256k1"
-version = "0.0.1"
+name = "di-bip340"
+version = "0.0.2"
 description = "A Data Integrity CryptoSuite using BIP340 Schnorr Signatures"
 authors = [
     {name = "Will Abramson"}

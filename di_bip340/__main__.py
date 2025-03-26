@@ -1,8 +1,8 @@
 from buidl.ecc import PrivateKey
 import json
-from di_schnorr_secp256k1.multikey import SchnorrSecp256k1Multikey
+from di_bip340.multikey import SchnorrSecp256k1Multikey
 from data_integrity_proof import DataIntegrityProof
-from cryptosuite import SchnorrSecp256k1JcsCryptoSuite
+from cryptosuite import Bip340JcsCryptoSuite
 
 def main():
     unsecured_document = {
@@ -28,12 +28,12 @@ def main():
                                       controller="did:btc1:k1q2ddta4gt5n7u6d3xwhdyua57t6awrk55ut82qvurfm0qnrxx5nw7vnsy65", 
                                       private_key=private_key)
 
-    cryptosuite = SchnorrSecp256k1JcsCryptoSuite(multikey)
+    cryptosuite = Bip340JcsCryptoSuite(multikey)
     di_proof = DataIntegrityProof(cryptosuite)
     
     options = {
         "type": "DataIntegrityProof",
-        "cryptosuite": "schnorr-secp256k1-jcs-2025",
+        "cryptosuite": "bip340-jcs-2025",
         "verificationMethod": "did:btc1:k1q2ddta4gt5n7u6d3xwhdyua57t6awrk55ut82qvurfm0qnrxx5nw7vnsy65#initialKey",
         "proofPurpose": "attestationMethod"
 

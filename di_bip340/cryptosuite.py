@@ -7,9 +7,9 @@ from buidl.helper import sha256
 
 # Only considering the JCS cryptosuite
 # Probably still want a base cryptosuite class
-class SchnorrSecp256k1JcsCryptoSuite:
+class Bip340JcsCryptoSuite:
     type = "DataIntegrityProof"
-    cryptosuite = "schnorr-secp256k1-jcs-2025"
+    cryptosuite = "bip340-jcs-2025"
 
     def __init__(self, multikey):
         self.schnorr_secp256k1_multikey = multikey
@@ -57,7 +57,7 @@ class SchnorrSecp256k1JcsCryptoSuite:
         return verification_result
 
     def transform_document(self, unsecured_document, options):
-        if options["type"] != SchnorrSecp256k1JcsCryptoSuite.type and options["cryptosuite"] != SchnorrSecp256k1JcsCryptoSuite.cryptosuite:
+        if options["type"] != Bip340JcsCryptoSuite.type and options["cryptosuite"] != Bip340JcsCryptoSuite.cryptosuite:
             raise "PROOF VERIFICATION ERROR"
         
         canonical_document = jcs.canonicalize(unsecured_document)
@@ -71,10 +71,10 @@ class SchnorrSecp256k1JcsCryptoSuite:
     def proof_configuration(self, options):
         proof_config = copy.deepcopy(options)
 
-        if proof_config["type"] != SchnorrSecp256k1JcsCryptoSuite.type:
+        if proof_config["type"] != Bip340JcsCryptoSuite.type:
             raise "PROOF_GENERATION_ERROR"
         
-        if proof_config["cryptosuite"] != SchnorrSecp256k1JcsCryptoSuite.cryptosuite:
+        if proof_config["cryptosuite"] != Bip340JcsCryptoSuite.cryptosuite:
             raise "PROOF_GENERATION_ERROR"
         
         if proof_config.get("created"):

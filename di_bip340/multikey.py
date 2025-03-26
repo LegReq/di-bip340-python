@@ -2,7 +2,7 @@ from buidl.ecc import PrivateKey, SchnorrSignature, S256Point
 import os
 from multiformats import varint, multibase
 
-SECP256K1_XONLY_PUBLIC_KEY_PREFIX = varint.encode(0x2561)
+SECP256K1_PUBLIC_KEY_PREFIX = varint.encode(0x2e7)
 
 
 class SchnorrSecp256k1Multikey:
@@ -47,8 +47,8 @@ class SchnorrSecp256k1Multikey:
         verification_method["type"] = "Multikey"
         verification_method["controller"] = self.controller
 
-        xonly_key_bytes = self.public_key.xonly()
-        multikey_bytes = SECP256K1_XONLY_PUBLIC_KEY_PREFIX + xonly_key_bytes
+        public_key_bytes = self.public_key.sec()
+        multikey_bytes = SECP256K1_PUBLIC_KEY_PREFIX + public_key_bytes
         pubkey_multibase = multibase.encode(multikey_bytes, "base58btc")
 
         verification_method["publicKeyMultibase"] = pubkey_multibase
@@ -77,10 +77,10 @@ class SchnorrSecp256k1Multikey:
         multikey_value = multibase.decode(pubkey_multibase)
 
         prefix = multikey_value[:2]
-        if prefix != SECP256K1_XONLY_PUBLIC_KEY_PREFIX:
+        if prefix != SECP256K1_PUBLIC_KEY_PREFIX:
             raise Exception("Unexpected multikey type")
         
-        key_bytes = multikey_value[2:]
+        key_bytes = multikey_value[3:]
 
         public_key = S256Point.parse_xonly(key_bytes)
 
