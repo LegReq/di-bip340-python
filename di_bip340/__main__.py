@@ -1,6 +1,6 @@
 from buidl.ecc import PrivateKey
 import json
-from di_bip340.multikey import SchnorrSecp256k1Multikey
+from multikey import SchnorrSecp256k1Multikey
 from data_integrity_proof import DataIntegrityProof
 from cryptosuite import Bip340JcsCryptoSuite
 
