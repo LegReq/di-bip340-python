@@ -5,28 +5,53 @@ from data_integrity_proof import DataIntegrityProof
 from cryptosuite import Bip340JcsCryptoSuite
 
 def main():
-    unsecured_document = {
-        '@context': [
-            'https://www.w3.org/ns/credentials/v2',
-            'https://www.w3.org/ns/credentials/examples/v2'],
-        'id': 'http://university.example/credentials/58473',
-        'type': ['VerifiableCredential', 'ExampleAlumniCredential'],
-        'validFrom': '2020-01-01T00:00:00Z',
-        'credentialSubject': {
-            'id': 'did:example:ebfeb1f712ebc6f1c276e12ec21',
-            'alumniOf': {
-                'id': 'did:example:c276e12ec21ebfeb1f712ebc6f1',
-                'name': 'Example University'
-            }
-        },
-        'issuer': 'did:btc1:k1q2ddta4gt5n7u6d3xwhdyua57t6awrk55ut82qvurfm0qnrxx5nw7vnsy65'}
-    
-    secret = 52464508790539176856770556715241483442035423615466097401201513777400180778402
-    private_key = PrivateKey(secret)
+    secured_document = {
+    "@context": [
+      "https://w3id.org/security/v2",
+      "https://w3id.org/zcap/v1",
+      "https://w3id.org/json-ld-patch/v1"
+    ],
+    "patch": [
+      {
+        "op": "add",
+        "path": "/service/3",
+        "value": {
+          "id": "#linked-domain",
+          "type": "LinkedDomains",
+          "serviceEndpoint": "https://contact-me.com"
+        }
+      }
+    ],
+    "sourceHash": "9kSA9j3z2X3a26yAdJi6nwg31qyfaHMCU1u81ZrkHirM",
+    "targetHash": "C45TsdfkLZh5zL6pFfRmK93X4EdHusbCDwvt8d7Xs3dP",
+    "targetVersionId": 2,
+    "proof": {
+      "type": "DataIntegrityProof",
+      "cryptosuite": "bip340-jcs-2025",
+      "verificationMethod": "did:btc1:regtest:k1qdh2ef3aqne63sdhq8tr7c8zv9lyl5xy4llj8uw3ejfj5xsuhcacjq98ccc#initialKey",
+      "proofPurpose": "capabilityInvocation",
+      "capability": "urn:zcap:root:did%3Abtc1%3Aregtest%3Ak1qdh2ef3aqne63sdhq8tr7c8zv9lyl5xy4llj8uw3ejfj5xsuhcacjq98ccc",
+      "capabilityAction": "Write",
+      "@context": [
+        "https://w3id.org/security/v2",
+        "https://w3id.org/zcap/v1",
+        "https://w3id.org/json-ld-patch/v1"
+      ],
+      "proofValue": "z3yfzVGdoDF4s8y4Bk8JeV9XuZw1nMeMtNW3x5brEm7DNtmWZkNBPbCLzUBJRpctBj9QJL1dydm94ZNsPxosPnkPP"
+    }
+    }
 
-    multikey = SchnorrSecp256k1Multikey(id="#initialKey", 
-                                      controller="did:btc1:k1q2ddta4gt5n7u6d3xwhdyua57t6awrk55ut82qvurfm0qnrxx5nw7vnsy65", 
-                                      private_key=private_key)
+    vm = {
+      "id": "#initialKey",
+      "type": "Multikey",
+      "controller": "did:btc1:regtest:k1qdh2ef3aqne63sdhq8tr7c8zv9lyl5xy4llj8uw3ejfj5xsuhcacjq98ccc",
+      "publicKeyMultibase": "zQ3shn68faoXE2EqCTtefQXNLgaTa7ZohG2ftZjgXphStJsGc"
+    }
+
+    secret = 52464508790539176856770556715241483442035423615466097401201513777400180778402
+    # private_key = PrivateKey(secret)
+
+    multikey = SchnorrSecp256k1Multikey.from_verification_method(vm)
 
     cryptosuite = Bip340JcsCryptoSuite(multikey)
     di_proof = DataIntegrityProof(cryptosuite)
@@ -34,19 +59,18 @@ def main():
     options = {
         "type": "DataIntegrityProof",
         "cryptosuite": "bip340-jcs-2025",
-        "verificationMethod": "did:btc1:k1q2ddta4gt5n7u6d3xwhdyua57t6awrk55ut82qvurfm0qnrxx5nw7vnsy65#initialKey",
-        "proofPurpose": "attestationMethod"
-
+        "verificationMethod": multikey.full_id(),
+        "proofPurpose": "capabilityInvocation"
     }
 
 
-    secured_document = di_proof.add_proof(unsecured_document, options)
+    # secured_document = di_proof.add_proof(unsecured_document, options)
 
-    print(json.dumps(secured_document, indent=4))
+    # print(json.dumps(secured_document, indent=4))
 
     # di_proof.add_proof(unsecured_document, )
 
-    verification_result = di_proof.verify_proof(None, json.dumps(secured_document), "attestationMethod", None, None)
+    verification_result = di_proof.verify_proof(None, json.dumps(secured_document), "capabilityInvocation", None, None)
     print(verification_result)
     
 

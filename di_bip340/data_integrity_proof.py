@@ -53,6 +53,7 @@ class DataIntegrityProof:
             raise "PROOF_VERIFICATION_ERROR"
         
         if expected_proof_purpose and expected_proof_purpose != proof_purpose:
+            print(proof_purpose, expected_proof_purpose)
             raise "PROOF_VERIFICATION_ERROR"
 
         # If domain was given, and it does not contain the same strings

@@ -82,7 +82,7 @@ class SchnorrSecp256k1Multikey:
         
         key_bytes = multikey_value[3:]
 
-        public_key = S256Point.parse_xonly(key_bytes)
+        public_key = S256Point.parse(key_bytes)
 
         return SchnorrSecp256k1Multikey(id, controller, public_key=public_key)
 
