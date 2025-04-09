@@ -64,7 +64,8 @@ class Bip340JcsCryptoSuite:
         return canonical_document
         
     def generate_hash(self, canonical_proof_config, canonical_document):
-        bytes_to_hash = canonical_proof_config + canonical_document
+        bytes_to_hash = sha256(canonical_proof_config) + sha256(canonical_document)
+        
         hash_data = sha256(bytes_to_hash)
         return hash_data
 
